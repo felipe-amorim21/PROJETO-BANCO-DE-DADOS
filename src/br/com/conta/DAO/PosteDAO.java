@@ -1,6 +1,5 @@
 package br.com.conta.DAO;
 import br.com.conta.model.Poste;
-import br.com.conta.model.TipoFase;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

@@ -2,7 +2,6 @@ package br.com.conta.util;
 
 import br.com.conta.DAO.TipoFaseDAO;
 import  br.com.conta.model.TipoFase;
-import br.com.conta.servico.ServicoTipoFase;
 
 import java.sql.SQLException;
 public class TipoFaseTeste {

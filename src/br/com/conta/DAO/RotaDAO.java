@@ -1,7 +1,6 @@
 package br.com.conta.DAO;
 
 import br.com.conta.model.Rota;
-import br.com.conta.model.TipoFase;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -90,7 +89,7 @@ public class RotaDAO extends ConexaoDB{
         }
     }
 
-    public boolean updateRota(TipoFase entidade) throws SQLException {
+    public boolean updateRota(Rota entidade) throws SQLException {
         try (PreparedStatement statement = prepararSQL(UPDATE_ROTA_SQL)) {
             statement.setString(1, entidade.getDescricao());
             statement.setInt(2, entidade.getId());
