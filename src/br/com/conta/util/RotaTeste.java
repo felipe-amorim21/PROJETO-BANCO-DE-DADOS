@@ -11,10 +11,12 @@ public class RotaTeste {
         //count
         System.out.println(rotaDAO.count());
 
-        //salvar
-        Rota rota = new Rota("Bairro B");
-        rotaDAO.insertRota(rota);
+        System.out.println(rotaDAO.selectRota(2));
 
-        System.out.println(rotaDAO.count());
+//        //salvar
+//        Rota rota = new Rota("Bairro B");
+//        rotaDAO.insertRota(rota);
+//
+//        System.out.println(rotaDAO.count());
     }
 }

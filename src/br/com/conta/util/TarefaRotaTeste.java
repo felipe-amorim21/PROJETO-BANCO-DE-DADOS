@@ -3,7 +3,6 @@ package br.com.conta.util;
 import br.com.conta.DAO.RotaDAO;
 import br.com.conta.DAO.TarefaRotaDAO;
 import br.com.conta.model.TarefaRota;
-import br.com.conta.model.TipoFase;
 
 import java.util.Date;
 
@@ -17,6 +16,8 @@ public class TarefaRotaTeste {
 
         //count
         System.out.println(tarefaRotaDAO.count());
+
+        System.out.println(tarefaRotaDAO.selectTarefaRota(1));
 
         //salvar
         TarefaRota tarefaRota = new TarefaRota("Observacao", d1, d1, "tarefa", rotaDAO.selectRota(1));

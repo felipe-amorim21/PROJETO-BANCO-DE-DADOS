@@ -1,6 +1,5 @@
 package br.com.conta.DAO;
 
-import br.com.conta.model.Rota;
 import br.com.conta.model.TarefaRota;
 
 import java.sql.*;
@@ -13,6 +12,8 @@ public class TarefaRotaDAO extends ConexaoDB{
     private static final String DELETE_TAREFA_ROTA_SQL = "DELETE FROM tarefa_rota WHERE id = ?;";
     private static final String UPDATE_TAREFA_ROTA_SQL = "UPDATE tarefa_rota SET observacao = ?, data_inicio, data_fim = ?, tarefa_rotacol = ?, id_rota = ? WHERE id = ?;";
     private static final String TOTAL = "SELECT count(1) FROM tarefa_rota;";
+
+    static RotaDAO rotaDAO = new RotaDAO();
 
 
     public Integer count() {
@@ -57,10 +58,10 @@ public class TarefaRotaDAO extends ConexaoDB{
                 String observacao = rs.getString("observacao");
                 Timestamp dataInicio = rs.getTimestamp("data_inicio");
                 Timestamp dataFim = rs.getTimestamp("data_fim");
-                String tarefaRotacol = rs.getString("tarefa-rotacol");
+                String tarefaRotacol = rs.getString("tarefa_rotacol");
                 int idRota = rs.getInt("id_rota");
 
-                entidade = new TarefaRota(id, observacao, dataInicio, dataFim, tarefaRotacol, selectTarefaRota(idRota).getIdRota());
+                entidade = new TarefaRota(id, observacao, dataInicio, dataFim, tarefaRotacol, rotaDAO.selectRota(idRota));
             }
         } catch (SQLException e) {
             printSQLException(e);
@@ -82,7 +83,7 @@ public class TarefaRotaDAO extends ConexaoDB{
                 Timestamp dataFim = rs.getTimestamp("data_fim");
                 String tarefaRotacol = rs.getString("tarefa-rotacol");
                 int idRota = rs.getInt("id_rota");
-                entidades.add(new TarefaRota(id, observacao, dataInicio, dataFim, tarefaRotacol, selectTarefaRota(idRota).getIdRota()));
+                entidades.add(new TarefaRota(id, observacao, dataInicio, dataFim, tarefaRotacol, rotaDAO.selectRota(idRota)));
             }
         } catch (SQLException e) {
             printSQLException(e);

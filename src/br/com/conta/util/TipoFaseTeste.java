@@ -12,10 +12,12 @@ public class TipoFaseTeste {
         //count
         System.out.println(tipoFaseDAO.count());
 
-        //salvar
-        TipoFase tipoFase = new TipoFase("teste");
-        tipoFaseDAO.insertTipoFase(tipoFase);
+        System.out.println(tipoFaseDAO.selectTipoFase(2));
 
-        System.out.println(tipoFaseDAO.count());
+//        //salvar
+//        TipoFase tipoFase = new TipoFase("teste");
+//        tipoFaseDAO.insertTipoFase(tipoFase);
+//
+//        System.out.println(tipoFaseDAO.count());
     }
 }
