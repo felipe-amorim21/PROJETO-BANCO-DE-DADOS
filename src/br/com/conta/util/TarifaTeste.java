@@ -6,6 +6,7 @@ import br.com.conta.model.TarefaRota;
 import br.com.conta.model.Tarifa;
 
 import java.util.Date;
+import java.util.List;
 
 public class TarifaTeste {
 
@@ -13,18 +14,22 @@ public class TarifaTeste {
     static ClasseDAO classeDAO = new ClasseDAO();
 
     public static void main(String[] args) {
+//
+//        Date d1 = new Date();
+//
+//        //count
+//        System.out.println(tarifaDAO.count());
+//
+//        System.out.println(classeDAO.selectClasse(1));
+//
+//        //salvar
+//        Tarifa tarifa = new Tarifa("0.23%", "2023.2", d1, d1, classeDAO.selectClasse(2));
+//        tarifaDAO.insertTarifa(tarifa);
+//
+//        System.out.println(tarifaDAO.count());
 
-        Date d1 = new Date();
+        List<Tarifa> medidores = tarifaDAO.selectAllTarifa();
+        medidores.forEach(System.out::println);
 
-        //count
-        System.out.println(tarifaDAO.count());
-
-        System.out.println(classeDAO.selectClasse(1));
-
-        //salvar
-        Tarifa tarifa = new Tarifa("0.23%", "2023.2", d1, d1, classeDAO.selectClasse(2));
-        tarifaDAO.insertTarifa(tarifa);
-
-        System.out.println(tarifaDAO.count());
     }
 }

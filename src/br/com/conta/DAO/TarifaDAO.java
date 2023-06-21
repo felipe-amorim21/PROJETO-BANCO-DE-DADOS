@@ -1,7 +1,9 @@
 package br.com.conta.DAO;
 
+import br.com.conta.model.Classe;
 import br.com.conta.model.TarefaRota;
 import br.com.conta.model.Tarifa;
+import br.com.conta.model.TipoFase;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,8 +15,8 @@ import java.util.List;
 public class TarifaDAO extends ConexaoDB{
 
     private static final String INSERT_TARIFA_SQL = "INSERT INTO tarifa (taxa, lei ,data_inicio, data_fim, id_classe) VALUES (?, ?, ?, ?, ?);";
-    private static final String SELECT_TARIFA_BY_ID = "SELECT id, taxa, lei, data_inicio, data_fim, id_classe FROM tarifa WHERE id = ?";
-    private static final String SELECT_ALL_TARIFA = "SELECT * FROM tarifa;";
+    private static final String SELECT_TARIFA_BY_ID = "SELECT * FROM tarifa t inner join classe c on c.id = t.id_classe  WHERE t.id = ?";
+    private static final String SELECT_ALL_TARIFA = "SELECT * FROM tarifa t inner join classe c on c.id = t.id_classe;";
     private static final String DELETE_TARIFA_SQL = "DELETE FROM tarifa WHERE id = ?;";
     private static final String UPDATE_TARIFA_SQL = "UPDATE tarifa SET taxa = ?, lei = ?, data_inicio, data_fim = ?, id_classe = ? WHERE id = ?;";
     private static final String TOTAL = "SELECT count(1) FROM tarifa;";
@@ -65,9 +67,9 @@ public class TarifaDAO extends ConexaoDB{
                 String lei = rs.getString("lei");
                 Timestamp dataInicio = rs.getTimestamp("data_inicio");
                 Timestamp dataFim = rs.getTimestamp("data_fim");
-                int idClasse = rs.getInt("id_classe");
+                Classe classe = new Classe(rs.getInt("id"), rs.getString("descricao"), new TipoFase(rs.getInt("id"), rs.getString("descricao")));
 
-                entidade = new Tarifa(id, taxa, lei, dataInicio, dataFim, classeDAO.selectClasse(idClasse));
+                entidade = new Tarifa(id, taxa, lei, dataInicio, dataFim, classe);
             }
         } catch (SQLException e) {
             printSQLException(e);
@@ -88,8 +90,9 @@ public class TarifaDAO extends ConexaoDB{
                 String lei = rs.getString("lei");
                 Timestamp dataInicio = rs.getTimestamp("data_inicio");
                 Timestamp dataFim = rs.getTimestamp("data_fim");
-                int idClasse = rs.getInt("id_classe");
-                entidades.add(new Tarifa(id, taxa, lei, dataInicio, dataFim, classeDAO.selectClasse(idClasse)));
+                Classe classe = new Classe(rs.getInt("id"), rs.getString("descricao"), new TipoFase(rs.getInt("id"), rs.getString("descricao")));
+
+                entidades.add(new Tarifa(id, taxa, lei, dataInicio, dataFim, classe));
             }
         } catch (SQLException e) {
             printSQLException(e);

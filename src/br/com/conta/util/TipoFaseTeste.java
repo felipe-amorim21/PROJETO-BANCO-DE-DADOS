@@ -1,9 +1,12 @@
 package br.com.conta.util;
 
 import br.com.conta.DAO.TipoFaseDAO;
+import br.com.conta.model.Medidor;
 import  br.com.conta.model.TipoFase;
 
 import java.sql.SQLException;
+import java.util.List;
+
 public class TipoFaseTeste {
     static TipoFaseDAO tipoFaseDAO = new TipoFaseDAO();
 
@@ -19,5 +22,8 @@ public class TipoFaseTeste {
 //        tipoFaseDAO.insertTipoFase(tipoFase);
 //
 //        System.out.println(tipoFaseDAO.count());
+
+        List<TipoFase> medidores = tipoFaseDAO.selectAllTipoFase();
+        medidores.forEach(System.out::println);
     }
 }

@@ -1,5 +1,6 @@
 package br.com.conta.DAO;
 
+import br.com.conta.model.Rota;
 import br.com.conta.model.TarefaRota;
 
 import java.sql.*;
@@ -7,8 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 public class TarefaRotaDAO extends ConexaoDB{
     private static final String INSERT_TAREFA_ROTA_SQL = "INSERT INTO tarefa_rota (observacao, data_inicio, data_fim, tarefa_rotacol, id_rota) VALUES (?, ?, ?, ?, ?);";
-    private static final String SELECT_TAREFA_ROTA_BY_ID = "SELECT id, observacao, data_inicio, data_fim, tarefa_rotacol, id_rota FROM tarefa_rota WHERE id = ?";
-    private static final String SELECT_ALL_TAREFA_ROTA = "SELECT * FROM tarefa_rota;";
+    private static final String SELECT_TAREFA_ROTA_BY_ID = "SELECT * FROM tarefa_rota t inner join rota r on r.id = t.id_rota WHERE id = ?";
+    private static final String SELECT_ALL_TAREFA_ROTA = "SELECT * FROM tarefa_rota t inner join rota r on r.id = t.id_rota;";
     private static final String DELETE_TAREFA_ROTA_SQL = "DELETE FROM tarefa_rota WHERE id = ?;";
     private static final String UPDATE_TAREFA_ROTA_SQL = "UPDATE tarefa_rota SET observacao = ?, data_inicio, data_fim = ?, tarefa_rotacol = ?, id_rota = ? WHERE id = ?;";
     private static final String TOTAL = "SELECT count(1) FROM tarefa_rota;";
@@ -59,9 +60,9 @@ public class TarefaRotaDAO extends ConexaoDB{
                 Timestamp dataInicio = rs.getTimestamp("data_inicio");
                 Timestamp dataFim = rs.getTimestamp("data_fim");
                 String tarefaRotacol = rs.getString("tarefa_rotacol");
-                int idRota = rs.getInt("id_rota");
+                Rota rota = new Rota(rs.getInt("id"), rs.getString("descricao"));
 
-                entidade = new TarefaRota(id, observacao, dataInicio, dataFim, tarefaRotacol, rotaDAO.selectRota(idRota));
+                entidade = new TarefaRota(id, observacao, dataInicio, dataFim, tarefaRotacol, rota);
             }
         } catch (SQLException e) {
             printSQLException(e);
@@ -81,9 +82,10 @@ public class TarefaRotaDAO extends ConexaoDB{
                 String observacao = rs.getString("observacao");
                 Timestamp dataInicio = rs.getTimestamp("data_inicio");
                 Timestamp dataFim = rs.getTimestamp("data_fim");
-                String tarefaRotacol = rs.getString("tarefa-rotacol");
+                String tarefaRotacol = rs.getString("tarefa_rotacol");
                 int idRota = rs.getInt("id_rota");
-                entidades.add(new TarefaRota(id, observacao, dataInicio, dataFim, tarefaRotacol, rotaDAO.selectRota(idRota)));
+                Rota rota = new Rota(rs.getInt("id"), rs.getString("descricao"));
+                entidades.add(new TarefaRota(id, observacao, dataInicio, dataFim, tarefaRotacol, rota));
             }
         } catch (SQLException e) {
             printSQLException(e);

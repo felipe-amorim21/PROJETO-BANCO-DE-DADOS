@@ -9,7 +9,7 @@ import java.util.List;
 
 public class PosteDAO extends ConexaoDB{
     private static final String INSERT_POSTE_SQL = "INSERT INTO poste (codigo, latitude, longitude, observacao) VALUES (?, ?, ?, ?);";
-    private static final String SELECT_POSTE_BY_ID = "SELECT * FROM poste WHERE id = ?";
+    private static final String SELECT_POSTE_BY_ID = "SELECT codigo, latitude, longitude, observacao FROM poste WHERE id = ?";
     private static final String SELECT_ALL_POSTE = "SELECT * FROM poste;";
     private static final String DELETE_POSTE_SQL = "DELETE FROM poste WHERE id = ?;";
     private static final String UPDATE_POSTE_SQL = "UPDATE poste SET codigo = ?, latitude = ?, longitude = ?, observacao = ? WHERE id = ?;";

@@ -4,6 +4,8 @@ import br.com.conta.DAO.ClasseDAO;
 import br.com.conta.DAO.TipoFaseDAO;
 import br.com.conta.model.Classe;
 
+import java.util.List;
+
 public class ClasseTeste {
     static ClasseDAO classeDAO = new ClasseDAO();
     static TipoFaseDAO tipoFaseDAO = new TipoFaseDAO();
@@ -19,5 +21,8 @@ public class ClasseTeste {
 //        classeDAO.insertClasse(classe);
 //
 //        System.out.println(classeDAO.count());
+
+        List<Classe> classe = classeDAO.selectAllClasse();
+        classe.forEach(System.out::println);
     }
 }
