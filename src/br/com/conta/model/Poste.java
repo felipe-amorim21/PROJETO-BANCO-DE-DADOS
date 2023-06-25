@@ -10,10 +10,6 @@ public class Poste extends GenericModel{
         this.codigo = codigo;
     }
 
-    public Poste(Integer id,String codigo) {
-        super.setId(id);
-        this.codigo = codigo;
-    }
 
     public Poste(String codigo, String latitude, String longitude, String observacao) {
         this.codigo = codigo;

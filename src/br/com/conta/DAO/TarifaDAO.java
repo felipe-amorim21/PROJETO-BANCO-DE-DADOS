@@ -15,8 +15,8 @@ import java.util.List;
 public class TarifaDAO extends ConexaoDB{
 
     private static final String INSERT_TARIFA_SQL = "INSERT INTO tarifa (taxa, lei ,data_inicio, data_fim, id_classe) VALUES (?, ?, ?, ?, ?);";
-    private static final String SELECT_TARIFA_BY_ID = "SELECT * FROM tarifa t inner join classe c on c.id = t.id_classe  WHERE t.id = ?";
-    private static final String SELECT_ALL_TARIFA = "SELECT * FROM tarifa t inner join classe c on c.id = t.id_classe;";
+    private static final String SELECT_TARIFA_BY_ID = "SELECT *, f.descricao as tipo_fase_descricao FROM tarifa t inner join classe c on c.id = t.id_classe inner join tipo_fase f on f.id=c.id_tipo_fase WHERE t.id = ?;";
+    private static final String SELECT_ALL_TARIFA = "SELECT *,f.descricao as tipo_fase_descricao FROM tarifa t inner join classe c on c.id = t.id_classe inner join tipo_fase f on f.id=c.id_tipo_fase;";
     private static final String DELETE_TARIFA_SQL = "DELETE FROM tarifa WHERE id = ?;";
     private static final String UPDATE_TARIFA_SQL = "UPDATE tarifa SET taxa = ?, lei = ?, data_inicio, data_fim = ?, id_classe = ? WHERE id = ?;";
     private static final String TOTAL = "SELECT count(1) FROM tarifa;";
@@ -67,7 +67,7 @@ public class TarifaDAO extends ConexaoDB{
                 String lei = rs.getString("lei");
                 Timestamp dataInicio = rs.getTimestamp("data_inicio");
                 Timestamp dataFim = rs.getTimestamp("data_fim");
-                Classe classe = new Classe(rs.getInt("id"), rs.getString("descricao"), new TipoFase(rs.getInt("id"), rs.getString("descricao")));
+                Classe classe = new Classe(rs.getInt("id_classe"), rs.getString("descricao"), new TipoFase(rs.getInt("id_tipo_fase"), rs.getString("tipo_fase_descricao"), rs.getString("observacao")));
 
                 entidade = new Tarifa(id, taxa, lei, dataInicio, dataFim, classe);
             }
@@ -90,7 +90,7 @@ public class TarifaDAO extends ConexaoDB{
                 String lei = rs.getString("lei");
                 Timestamp dataInicio = rs.getTimestamp("data_inicio");
                 Timestamp dataFim = rs.getTimestamp("data_fim");
-                Classe classe = new Classe(rs.getInt("id"), rs.getString("descricao"), new TipoFase(rs.getInt("id"), rs.getString("descricao")));
+                Classe classe = new Classe(rs.getInt("id_classe"), rs.getString("descricao"), new TipoFase(rs.getInt("id_tipo_fase"), rs.getString("tipo_fase_descricao"), rs.getString("observacao")));
 
                 entidades.add(new Tarifa(id, taxa, lei, dataInicio, dataFim, classe));
             }

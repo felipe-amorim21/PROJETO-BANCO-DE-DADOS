@@ -19,7 +19,7 @@ public class TarefaRotaTeste {
 //        //count
 //        System.out.println(tarefaRotaDAO.count());
 //
-//        System.out.println(tarefaRotaDAO.selectTarefaRota(1));
+        System.out.println(tarefaRotaDAO.selectTarefaRota(1));
 //
 //        //salvar
 //        TarefaRota tarefaRota = new TarefaRota("Observacao", d1, d1, "tarefa", rotaDAO.selectRota(1));

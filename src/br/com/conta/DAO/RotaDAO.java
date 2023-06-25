@@ -10,7 +10,7 @@ import java.util.List;
 
 public class RotaDAO extends ConexaoDB{
     private static final String INSERT_ROTA_SQL = "INSERT INTO rota (descricao) VALUES (?);";
-    private static final String SELECT_ROTA_BY_ID = "SELECT id, descricao FROM rota WHERE id = ?";
+    private static final String SELECT_ROTA_BY_ID = "SELECT id, descricao FROM rota WHERE id = ?;";
     private static final String SELECT_ALL_ROTA = "SELECT * FROM rota;";
     private static final String DELETE_ROTA_SQL = "DELETE FROM rota WHERE id = ?;";
     private static final String UPDATE_ROTA_SQL = "UPDATE rota SET descricao = ?, WHERE id = ?;";

@@ -13,10 +13,10 @@ import java.sql.SQLException;
 public class MedidorDAO extends ConexaoDB{
 
     private static final String INSERT_MEDIDOR_SQL = "INSERT INTO medidor (descricao, id_poste, id_rota) VALUES (?, ?, ?);";
-    private static final String SELECT_MEDIDOR_BY_ID = "select * from medidor m inner join poste p on p.id = m.id_poste inner join rota r on r.id = m.id_poste WHERE m.id = ?;";
-    private static final String SELECT_ALL_MEDIDOR = "select * from medidor m inner join poste p on p.id = m.id_poste inner join rota r on r.id = m.id_poste;";
+    private static final String SELECT_MEDIDOR_BY_ID = "select *, r.descricao as rota_descricao from medidor m inner join poste p on p.id = m.id_poste inner join rota r on r.id = m.id_rota WHERE m.id = ?";
+    private static final String SELECT_ALL_MEDIDOR = "select *, r.descricao as rota_descricao from medidor m inner join poste p on p.id = m.id_poste inner join rota r on r.id = m.id_rota;";
     private static final String DELETE_MEDIDOR_SQL = "DELETE FROM medidor WHERE id = ?;";
-    private static final String UPDATE_MEDIDOR_SQL = "UPDATE medidor SET descricao = ?, id_poste, id_rota = ? WHERE id = ?;";
+    private static final String UPDATE_MEDIDOR_SQL = "UPDATE medidor SET descricao = ?, id_poste = ?, id_rota = ? WHERE id = ?;";
     private static final String TOTAL = "SELECT count(1) FROM medidor;";
 
     static PosteDAO posteDAO = new PosteDAO();
@@ -63,8 +63,11 @@ public class MedidorDAO extends ConexaoDB{
                 String descricao = rs.getString("descricao");
                 int idPoste = rs.getInt("id_poste");
                 int idRota = rs.getInt("id_rota");
+                Poste poste = new Poste(idPoste, rs.getString("codigo"), rs.getString("latitude"), rs.getString("longitude"), rs.getString("observacao"));
+                Rota rota = new Rota(idRota, rs.getString("rota_descricao"));
 
-                entidade = new Medidor(descricao, new Poste(rs.getInt(id), rs.getString("codigo"), rs.getString("latitude"), rs.getString("longitude"), rs.getString("observacao")), new Rota(rs.getInt(id), rs.getString("descricao")));
+                entidade = new Medidor(id, descricao, poste, rota);
+
             }
         } catch (SQLException e) {
             printSQLException(e);
@@ -85,7 +88,7 @@ public class MedidorDAO extends ConexaoDB{
                 int idPoste = rs.getInt("id_poste");
                 int idRota = rs.getInt("id_rota");
                 Poste poste = new Poste(idPoste, rs.getString("codigo"), rs.getString("latitude"), rs.getString("longitude"), rs.getString("observacao"));
-                Rota rota = new Rota(idRota, rs.getString("descricao"));
+                Rota rota = new Rota(idRota, rs.getString("rota_descricao"));
                 entidades.add(new Medidor(id, descricao, poste, rota));
             }
         } catch (SQLException e) {

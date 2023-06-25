@@ -11,8 +11,8 @@ import java.sql.SQLException;
 
 public class ClasseDAO extends ConexaoDB{
     private static final String INSERT_CLASSE_SQL = "INSERT INTO classe (descricao, id_tipo_fase) VALUES (?, ?);";
-    private static final String SELECT_CLASSE_BY_ID = "SELECT * FROM classe c inner join tipo_fase t on t.id = c.id_tipo_fase WHERE c.id = ?";
-    private static final String SELECT_ALL_CLASSE = "SELECT * FROM classe c inner join tipo_fase t on t.id = c.id_tipo_fase;";
+    private static final String SELECT_CLASSE_BY_ID = "SELECT *, t.descricao as tipo_fase_descricao FROM classe c inner join tipo_fase t on t.id = c.id_tipo_fase WHERE c.id = ?;";
+    private static final String SELECT_ALL_CLASSE = "SELECT *, t.descricao as tipo_fase_descricao FROM classe c inner join tipo_fase t on t.id = c.id_tipo_fase;";
     private static final String DELETE_CLASSE_SQL = "DELETE FROM classe WHERE id = ?;";
     private static final String UPDATE_CLASSE_SQL = "UPDATE classe SET descricao = ?, id_tipo_fase = ? WHERE id = ?;";
     private static final String TOTAL = "SELECT count(1) FROM classe;";
@@ -57,7 +57,7 @@ public class ClasseDAO extends ConexaoDB{
 
             while (rs.next()) {
                 String descricao = rs.getString("descricao");
-                TipoFase tipoFase = new TipoFase(rs.getInt("id"), rs.getString("descricao"), rs.getString("observacao"));
+                TipoFase tipoFase = new TipoFase(rs.getInt("id_tipo_fase"), rs.getString("tipo_fase_descricao"), rs.getString("observacao"));
 
                 entidade = new Classe(id, descricao, tipoFase);
             }
@@ -77,7 +77,7 @@ public class ClasseDAO extends ConexaoDB{
             while (rs.next()) {
                 int id = rs.getInt("id");
                 String descricao = rs.getString("descricao");
-                TipoFase tipoFase = new TipoFase(rs.getInt("id"), rs.getString("descricao"), rs.getString("observacao"));
+                TipoFase tipoFase = new TipoFase(rs.getInt("id_tipo_fase"), rs.getString("tipo_fase_descricao"), rs.getString("observacao"));
 
                 entidades.add(new Classe(id, descricao, tipoFase));
             }

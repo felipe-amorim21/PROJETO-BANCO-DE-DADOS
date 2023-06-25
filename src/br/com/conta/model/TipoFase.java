@@ -4,18 +4,10 @@ public class TipoFase extends GenericModel {
     private String descricao;
     private String observacao;
 
-    public TipoFase(String descricao) {
-        this.descricao = descricao;
-    }
 
     public TipoFase(String descricao, String observacao) {
         this.descricao = descricao;
         this.observacao = observacao;
-    }
-
-    public TipoFase(Integer id, String descricao) {
-        this.descricao = descricao;
-        super.setId(id);
     }
 
     public TipoFase(Integer id, String descricao, String observacao) {
@@ -45,6 +37,7 @@ public class TipoFase extends GenericModel {
         return "Tipo_fase{" +
                 "id='" + this.getId() + "\'" +
                 "descricao='" + descricao + "\'" +
+                "observação='" + observacao + "\'" +
                 '}';
     }
 }

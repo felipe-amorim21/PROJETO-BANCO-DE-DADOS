@@ -25,14 +25,14 @@ public class MedidorTeste {
 //
 //        //buscar por ID
 //        medidor = medidorDAO.selectMedidor(1);
-//        System.out.println(medidor);
+        System.out.println(medidorDAO.selectMedidor(1));
 //
 //
 //        //Update
 //        medidor.setDescricao("Medidor-7");
 //        medidorDAO.updateMedidor(medidor);
 //        medidor = medidorDAO.selectMedidor(2);
-//        System.out.println(medidor);
+//        System.out.println(medidorDAO.selectMedidor(2));
 
         //Select all
         List<Medidor> medidores = medidorDAO.selectAllMedidor();
@@ -40,6 +40,6 @@ public class MedidorTeste {
 
         //Delete
 //        medidorDAO.deleteMedidor(24);
-        medidorDAO.selectAllMedidor().forEach(System.out::println);
+//        medidorDAO.selectAllMedidor().forEach(System.out::println);
     }
 }
